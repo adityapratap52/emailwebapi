@@ -10,15 +10,12 @@ import java.util.Properties;
 @Service
 public class EmailService {
 
-    public boolean sendEmail(String subject, String message, String to) {
+     public boolean sendEmail(EmailRequest request) {
 
         boolean f = false;
 
-        String from = "adityapratap1490@gmail.com";
-
         // get the system properties
         Properties properties = System.getProperties();
-        System.out.println(properties);
 
         // setting important information to properties object
 
@@ -32,7 +29,7 @@ public class EmailService {
         Session session = Session.getInstance(properties, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("adityapratap1490@gmail.com", "Da@1234&as");
+                return new PasswordAuthentication("<emailId>", "<password>");
             }
         });
 
@@ -44,16 +41,16 @@ public class EmailService {
         try {
 
             // from email
-            m.setFrom(from);
+            m.setFrom(request.getFrom());
 
             // adding recipient to message
-            m.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            m.addRecipient(Message.RecipientType.TO, new InternetAddress(request.getTo()));
 
             // adding subject to message
-            m.setSubject(subject);
+            m.setSubject(request.getSubject());
 
             // adding text to message
-            m.setText(message);
+            m.setText(request.getMessage());
 
             // Step 3 : send the message using Transport class
             Transport.send(m);
@@ -68,5 +65,4 @@ public class EmailService {
 
         return f;
     }
-
 }
