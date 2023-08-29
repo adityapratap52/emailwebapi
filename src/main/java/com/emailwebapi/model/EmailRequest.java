@@ -2,12 +2,14 @@ package com.emailwebapi.model;
 
 public class EmailRequest {
 
+    private String from;
     private String to;
     private String subject;
     private String message;
 
-    public EmailRequest(String to, String subject, String message) {
+    public EmailRequest(String from, String to, String subject, String message) {
         super();
+        this.from = from;
         this.to = to;
         this.subject = subject;
         this.message = message;
@@ -16,7 +18,13 @@ public class EmailRequest {
     public EmailRequest() {
         super();
     }
+    public String getFrom() {
+        return from;
+    }
 
+    public void setFrom(String from) {
+        this.from = from;
+    }
     public String getTo() {
         return to;
     }
@@ -44,7 +52,8 @@ public class EmailRequest {
     @Override
     public String toString() {
         return "EmailRequest{" +
-                "to='" + to + '\'' +
+                "from='" + from + '\'' +
+                ", to='" + to + '\'' +
                 ", subject='" + subject + '\'' +
                 ", message='" + message + '\'' +
                 '}';
